@@ -1,20 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { db } from './index';
-import { pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
+import { siteSettings } from './schema';
 import type { SiteSettings } from '@/types';
-
-export const siteSettings = pgTable('site_settings', {
-  id: serial('id').primaryKey(),
-  siteName: text('site_name').notNull(),
-  siteDescription: text('site_description').notNull(),
-  siteUrl: text('site_url').notNull(),
-  ogImage: text('og_image').notNull(),
-  authorName: text('author_name').notNull(),
-  authorUrl: text('author_url').notNull(),
-  twitterHandle: text('twitter_handle').notNull(),
-  contactEmail: text('contact_email').notNull(),
-  updatedAt: timestamp('updated_at').defaultNow(),
-});
 
 export const DEFAULT_SETTINGS: SiteSettings = {
   siteName: 'The Chronicle',
