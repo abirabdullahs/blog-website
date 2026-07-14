@@ -1,42 +1,19 @@
-'use client';
-
-import { useEffect, useState, use } from 'react';
 import { getPublishedBlogs } from '@/lib/db/blog-service';
 import { Blog } from '@/types';
 import BlogCard from '@/components/public/BlogCard';
-import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 
-export default function TagArchivePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
-  const [blogs, setBlogs] = useState<Blog[]>([]);
-  const [loading, setLoading] = useState(true);
+type Props = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
 
-  // Tags are stored as strings in our model
+export default async function TagArchivePage({ params }: Props) {
+  const { slug } = await params;
+
   const tagName = decodeURIComponent(slug);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const blogData = await getPublishedBlogs();
-        setBlogs(blogData);
-      } catch (error) {
-        console.error('Error fetching archive:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, [tagName]);
-
-  if (loading) {
-    return (
-      <div className="max-w-7xl mx-auto px-6 py-40 flex flex-col items-center justify-center gap-4">
-        <Loader2 className="animate-spin opacity-20" size={48} />
-        <span className="text-[0.6rem] uppercase tracking-[0.4em] font-bold opacity-40">Cross-referencing Tags...</span>
-      </div>
-    );
-  }
+  const blogs = await getPublishedBlogs();
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">

@@ -1,42 +1,27 @@
-'use client';
-
-import { useEffect, useState, use } from 'react';
 import { getPublishedBlogs } from '@/lib/db/blog-service';
 import { getCategoryBySlug } from '@/lib/db/category-service';
 import { Blog, Category } from '@/types';
 import BlogCard from '@/components/public/BlogCard';
-import { Loader2, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-export default function CategoryArchivePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = use(params);
-  const [blogs, setBlogs] = useState<Blog[]>([]);
-  const [category, setCategory] = useState<Category | null>(null);
-  const [loading, setLoading] = useState(true);
+type Props = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const catData = await getCategoryBySlug(slug);
-        if (catData) {
-          setCategory(catData);
-          const blogData = await getPublishedBlogs();
-          setBlogs(blogData);
-        }
-      } catch (error) {
-        console.error('Error fetching archive:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, [slug]);
+export default async function CategoryArchivePage({ params }: Props) {
+  const { slug } = await params;
 
-  if (loading) {
+  const category = await getCategoryBySlug(slug);
+  const blogs = category ? await getPublishedBlogs() : [];
+  if (!category) {
     return (
-      <div className="max-w-7xl mx-auto px-6 py-40 flex flex-col items-center justify-center gap-4">
-        <Loader2 className="animate-spin opacity-20" size={48} />
-        <span className="text-[0.6rem] uppercase tracking-[0.4em] font-bold opacity-40">Filtering Archives...</span>
+      <div className="max-w-7xl mx-auto px-6 py-40 text-center flex flex-col items-center gap-6">
+        <h2 className="text-6xl font-bold font-serif italic tracking-tighter opacity-10">Archive Not Found</h2>
+        <Link href="/" className="px-6 py-3 border border-black text-[0.6rem] font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+          Back to Home
+        </Link>
       </div>
     );
   }

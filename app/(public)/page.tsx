@@ -1,37 +1,19 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import { getPublishedBlogs } from '@/lib/db/blog-service';
 import { Blog } from '@/types';
 import BlogCard from '@/components/public/BlogCard';
-import { Loader2 } from 'lucide-react';
 
-export default function HomePage() {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchBlogs() {
-      try {
-        const data = await getPublishedBlogs();
-        setBlogs(data);
-      } catch (error) {
-        console.error('Failed to fetch blogs:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchBlogs();
-  }, []);
-
+export default async function HomePage() {
+  const blogs = await getPublishedBlogs();
   const featuredBlog = blogs[0];
   const recentBlogs = blogs.slice(1);
 
-  if (loading) {
+  if (!featuredBlog) {
     return (
-      <div className="max-w-7xl mx-auto px-6 py-40 flex flex-col items-center justify-center gap-4">
-        <Loader2 className="animate-spin opacity-20" size={48} />
-        <span className="text-[0.6rem] uppercase tracking-[0.4em] font-bold opacity-40">Printing Today's Journal...</span>
+      <div className="max-w-7xl mx-auto px-6 py-40 text-center flex flex-col items-center gap-6">
+        <h2 className="text-6xl font-bold font-serif italic tracking-tighter opacity-10">The Journal is Empty</h2>
+        <p className="text-[0.65rem] uppercase tracking-widest font-bold opacity-30 max-w-xs leading-relaxed">
+          We are currently compiling our first edition. Please check back shortly for our inaugural dispatch.
+        </p>
       </div>
     );
   }
