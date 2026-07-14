@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState, use } from 'react';
-import { getPublishedBlogs } from '@/lib/firebase/blogs';
-import { getCategoryBySlug } from '@/lib/firebase/categories';
+import { getPublishedBlogs } from '@/lib/db/blog-service';
+import { getCategoryBySlug } from '@/lib/db/category-service';
 import { Blog, Category } from '@/types';
 import BlogCard from '@/components/public/BlogCard';
 import { Loader2, ArrowLeft } from 'lucide-react';
@@ -20,7 +20,7 @@ export default function CategoryArchivePage({ params }: { params: Promise<{ slug
         const catData = await getCategoryBySlug(slug);
         if (catData) {
           setCategory(catData);
-          const blogData = await getPublishedBlogs(catData.id);
+          const blogData = await getPublishedBlogs();
           setBlogs(blogData);
         }
       } catch (error) {

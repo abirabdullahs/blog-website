@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Plus, Search, MoreVertical, Loader2 } from 'lucide-react';
-import { getBlogs } from '@/lib/firebase/blogs';
+import { getBlogs } from '@/lib/db/blog-service';
 import { Blog } from '@/types';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';

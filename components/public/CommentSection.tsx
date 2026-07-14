@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { addComment, getComments } from '@/lib/firebase/blog-interactions';
+import { addComment, getComments } from '@/lib/db/interaction-service';
 import { format } from 'date-fns';
 import { MessageSquare, Send, Loader2 } from 'lucide-react';
 

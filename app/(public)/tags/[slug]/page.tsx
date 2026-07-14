@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, use } from 'react';
-import { getPublishedBlogs } from '@/lib/firebase/blogs';
+import { getPublishedBlogs } from '@/lib/db/blog-service';
 import { Blog } from '@/types';
 import BlogCard from '@/components/public/BlogCard';
 import { Loader2 } from 'lucide-react';
@@ -18,7 +18,7 @@ export default function TagArchivePage({ params }: { params: Promise<{ slug: str
   useEffect(() => {
     async function fetchData() {
       try {
-        const blogData = await getPublishedBlogs(undefined, tagName);
+        const blogData = await getPublishedBlogs();
         setBlogs(blogData);
       } catch (error) {
         console.error('Error fetching archive:', error);

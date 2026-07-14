@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Loader2 } from 'lucide-react';
 import BlogForm from '@/components/admin/BlogForm';
-import { getBlogById } from '@/lib/firebase/blogs';
+import { getBlogById } from '@/lib/db/blog-service';
 import { Blog } from '@/types';
 
 export default function EditBlogPage() {

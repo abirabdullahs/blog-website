@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { Loader2, Save, Send, ChevronDown, X, Plus } from 'lucide-react';
 import TiptapEditor from '@/components/admin/editor/TiptapEditor';
-import { createBlog, updateBlog } from '@/lib/firebase/blogs';
-import { getCategories } from '@/lib/firebase/categories';
-import { getTags, createTag } from '@/lib/firebase/tags';
+import { createBlog, updateBlog } from '@/lib/db/blog-service';
+import { getCategories } from '@/lib/db/category-service';
+import { getTags, createTag } from '@/lib/db/tag-service';
 import { Blog, Category, Tag } from '@/types';
 import { cn, slugify } from '@/lib/utils';
 

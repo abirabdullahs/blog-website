@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
-import { getBlogs } from '@/lib/firebase/blogs';
-import { getCategories } from '@/lib/firebase/categories';
+import { getBlogs } from '@/lib/db/blog-service';
+import { getCategories } from '@/lib/db/category-service';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://the-chronicle.journal';

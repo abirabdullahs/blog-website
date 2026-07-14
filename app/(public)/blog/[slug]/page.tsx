@@ -1,4 +1,4 @@
-import { getBlogBySlug } from '@/lib/firebase/blogs';
+import { getBlogBySlug } from '@/lib/db/blog-service';
 import { constructMetadata } from '@/lib/seo';
 import BlogContent from '@/components/public/BlogContent';
 import JsonLd from '@/components/public/JsonLd';

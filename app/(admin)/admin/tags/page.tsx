@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Plus, Loader2, X, Pencil, Check } from 'lucide-react';
-import { getTags, createTag, updateTag, deleteTag } from '@/lib/firebase/tags';
+import { getTags, createTag, updateTag, deleteTag } from '@/lib/db/tag-service';
 import { Tag } from '@/types';
 import { slugify } from '@/lib/utils';
 

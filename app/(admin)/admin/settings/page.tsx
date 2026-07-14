@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Loader2, Save, Check } from 'lucide-react';
-import { getSiteSettings, updateSiteSettings, DEFAULT_SETTINGS } from '@/lib/firebase/settings';
+import { getSiteSettings, updateSiteSettings, DEFAULT_SETTINGS } from '@/lib/db/settings-service';
 import { SiteSettings } from '@/types';
 
 const FIELDS: { key: keyof SiteSettings; label: string; placeholder: string; type?: string }[] = [

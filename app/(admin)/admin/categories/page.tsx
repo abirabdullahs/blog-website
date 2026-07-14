@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Plus, Loader2, Pencil, Trash2, X, Check } from 'lucide-react';
-import { getCategories, createCategory, updateCategory, deleteCategory } from '@/lib/firebase/categories';
+import { getCategories, createCategory, updateCategory, deleteCategory } from '@/lib/db/category-service';
 import { Category } from '@/types';
 import { slugify } from '@/lib/utils';
 

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Heart, Share2, Bookmark, Check, Copy } from 'lucide-react';
-import { incrementLikes } from '@/lib/firebase/blog-interactions';
+import { incrementLikes } from '@/lib/db/interaction-service';
 import { cn } from '@/lib/utils';
 
 interface UserInteractionsProps {

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
-import { incrementViews } from '@/lib/firebase/blog-interactions';
+import { incrementViews } from '@/lib/db/interaction-service';
 import { Blog } from '@/types';
 import { format } from 'date-fns';
 import { ArrowLeft } from 'lucide-react';

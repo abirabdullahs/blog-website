@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { getPublishedBlogs } from '@/lib/firebase/blogs';
+import { getPublishedBlogs } from '@/lib/db/blog-service';
 import { Blog } from '@/types';
 import BlogCard from '@/components/public/BlogCard';
 import { Loader2 } from 'lucide-react';

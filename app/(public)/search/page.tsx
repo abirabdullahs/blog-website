@@ -2,7 +2,7 @@
 
 import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { searchBlogs } from '@/lib/firebase/blogs';
+import { searchBlogs } from '@/lib/db/blog-service';
 import { Blog } from '@/types';
 import BlogCard from '@/components/public/BlogCard';
 import { Loader2, Search as SearchIcon } from 'lucide-react';
