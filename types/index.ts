@@ -35,4 +35,17 @@ export interface Category {
 export interface Tag {
   id: string;
   name: string;
+  slug: string;
+}
+
+export interface SiteSettings {
+  siteName: string;
+  siteDescription: string;
+  siteUrl: string;
+  ogImage: string;
+  authorName: string;
+  authorUrl: string;
+  twitterHandle: string;
+  contactEmail: string;
+  updatedAt?: any;
 }
