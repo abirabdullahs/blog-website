@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+
 import Link from 'next/link';
 import { Search, Menu, X, Feather } from 'lucide-react';
 import { useState } from 'react';
@@ -37,7 +37,7 @@ export default function Navbar() {
 
           <div className="leading-tight">
             <h1 className="text-lg font-semibold tracking-tight">
-              Abir's
+              Abir&apos;s
             </h1>
             <p className="text-xs text-gray-500">
               Blog
