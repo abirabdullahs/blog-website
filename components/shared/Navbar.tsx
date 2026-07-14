@@ -1,7 +1,7 @@
 'use client';
-
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { Search, Menu, X } from 'lucide-react';
+import { Search, Menu, X, Feather } from 'lucide-react';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -14,76 +14,151 @@ export default function Navbar() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!searchQuery.trim()) return;
+
     router.push(`/search?q=${encodeURIComponent(searchQuery)}`);
-    setIsSearchOpen(false);
+
     setSearchQuery('');
+    setIsSearchOpen(false);
   };
 
   return (
-    <header className="border-b-2 border-black sticky top-0 bg-[#FDFCFB]/80 backdrop-blur-sm z-50">
-      <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-        <div className="flex items-center gap-8">
-          <Link href="/" className="flex flex-col group">
-            <span className="text-[0.6rem] uppercase tracking-[0.4em] font-bold text-gray-400 mb-0.5 group-hover:text-black transition-colors">The Next.js Journal</span>
-            <h1 className="text-3xl font-bold tracking-tighter italic font-serif">Chronicle</h1>
-          </Link>
-          
-          <nav className="hidden md:flex gap-8 text-[0.65rem] font-bold uppercase tracking-[0.2em]">
-            <Link href="/" className="hover:line-through transition-all">Latest</Link>
-            <Link href="/categories" className="hover:line-through transition-all">Categories</Link>
-            <Link href="/archive" className="hover:line-through transition-all">Archive</Link>
-          </nav>
-        </div>
-
-        <div className="flex items-center gap-6">
-          <div className="hidden sm:flex items-center gap-2 border-l border-black/10 pl-6 h-8">
-            <div className="w-2 h-2 bg-red-600 rounded-full"></div>
-            <span className="text-[0.6rem] font-bold uppercase tracking-widest">Issue № 001</span>
+    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-xl">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+        {/* Logo */}
+        <Link
+          href="/"
+          className="flex items-center gap-3 transition-opacity hover:opacity-80"
+        >
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-black text-white shadow-sm">
+            <Feather size={18} />
           </div>
-          
-          <button 
-            onClick={() => setIsSearchOpen(!isSearchOpen)}
-            className="p-2 hover:bg-black/5 transition-colors"
+
+          <div className="leading-tight">
+            <h1 className="text-lg font-semibold tracking-tight">
+              Abir's
+            </h1>
+            <p className="text-xs text-gray-500">
+              Blog
+            </p>
+          </div>
+        </Link>
+
+        {/* Desktop Nav */}
+        <nav className="hidden items-center gap-8 text-sm font-medium text-gray-700 md:flex">
+          <Link
+            href="/"
+            className="transition-colors hover:text-black"
           >
-            {isSearchOpen ? <X size={18} /> : <Search size={18} />}
+            Home
+          </Link>
+
+          <Link
+            href="/categories"
+            className="transition-colors hover:text-black"
+          >
+            Categories
+          </Link>
+
+          <Link
+            href="/archive"
+            className="transition-colors hover:text-black"
+          >
+            Archive
+          </Link>
+        </nav>
+
+        {/* Right Side */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            className="rounded-lg p-2 transition hover:bg-gray-100"
+          >
+            {isSearchOpen ? (
+              <X size={20} />
+            ) : (
+              <Search size={20} />
+            )}
           </button>
-          
-          <button 
-            className="md:hidden p-2"
+
+          <button
+            className="rounded-lg p-2 transition hover:bg-gray-100 md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {isMenuOpen ? (
+              <X size={22} />
+            ) : (
+              <Menu size={22} />
+            )}
           </button>
         </div>
       </div>
 
       {/* Search Overlay */}
-      <div className={cn(
-        "absolute top-full left-0 w-full bg-[#FDFCFB] border-b-2 border-black overflow-hidden transition-all duration-300",
-        isSearchOpen ? "max-h-24 py-6" : "max-h-0 py-0"
-      )}>
-        <form onSubmit={handleSearch} className="max-w-7xl mx-auto px-6">
-          <input 
-            autoFocus
-            type="text" 
-            placeholder="TYPE YOUR QUERY AND PRESS ENTER..." 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-transparent border-b border-black/10 text-xl font-serif italic py-2 outline-none placeholder:opacity-20"
-          />
+      <div
+        className={cn(
+          'absolute left-0 top-full w-full overflow-hidden border-b bg-white transition-all duration-300',
+          isSearchOpen ? 'max-h-28 py-6' : 'max-h-0 py-0'
+        )}
+      >
+        <form
+          onSubmit={handleSearch}
+          className="mx-auto max-w-5xl px-6"
+        >
+          <div className="flex items-center gap-3 rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
+            <Search
+              size={18}
+              className="text-gray-400"
+            />
+
+            <input
+              autoFocus
+              type="text"
+              value={searchQuery}
+              onChange={(e) =>
+                setSearchQuery(e.target.value)
+              }
+              placeholder="Search articles..."
+              className="flex-1 bg-transparent text-sm outline-none placeholder:text-gray-400"
+            />
+          </div>
         </form>
       </div>
 
       {/* Mobile Menu */}
-      <div className={cn(
-        "absolute top-full left-0 w-full bg-[#FDFCFB] border-b border-black overflow-hidden transition-all duration-300 md:hidden",
-        isMenuOpen ? "max-h-64" : "max-h-0"
-      )}>
-        <nav className="flex flex-col p-6 gap-4 text-xs font-bold uppercase tracking-widest">
-          <Link href="/" onClick={() => setIsMenuOpen(false)}>Latest</Link>
-          <Link href="/categories" onClick={() => setIsMenuOpen(false)}>Categories</Link>
-          <Link href="/archive" onClick={() => setIsMenuOpen(false)}>Archive</Link>
+      <div
+        className={cn(
+          'absolute left-0 top-full w-full overflow-hidden border-b bg-white transition-all duration-300 md:hidden',
+          isMenuOpen
+            ? 'max-h-80 py-4'
+            : 'max-h-0 py-0'
+        )}
+      >
+        <nav className="flex flex-col gap-4 px-6 text-sm font-medium">
+          <Link
+            href="/"
+            onClick={() => setIsMenuOpen(false)}
+            className="transition hover:text-black"
+          >
+            Home
+          </Link>
+
+          <Link
+            href="/categories"
+            onClick={() => setIsMenuOpen(false)}
+            className="transition hover:text-black"
+          >
+            Categories
+          </Link>
+
+          <Link
+            href="/archive"
+            onClick={() => setIsMenuOpen(false)}
+            className="transition hover:text-black"
+          >
+            Archive
+          </Link>
         </nav>
       </div>
     </header>
