@@ -1,0 +1,6 @@
+{
+  "name": "Blog Website",
+  "description": "A production-ready blog platform featuring a custom Tiptap editor, Firestore persistence, and a secure NextAuth admin panel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
